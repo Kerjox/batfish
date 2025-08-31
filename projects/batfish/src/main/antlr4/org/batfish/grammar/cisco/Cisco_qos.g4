@@ -560,7 +560,7 @@ ogs_group_object
 
 ogs_icmp
 :
-   ICMP NEWLINE
+   ICMP icmp_object_type? NEWLINE
 ;
 
 ogs_service_object

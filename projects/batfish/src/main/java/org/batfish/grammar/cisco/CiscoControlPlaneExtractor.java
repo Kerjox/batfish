@@ -2995,7 +2995,14 @@ public class CiscoControlPlaneExtractor extends CiscoParserBaseListener
 
   @Override
   public void exitOgs_icmp(Ogs_icmpContext ctx) {
-    _currentServiceObjectGroup.getLines().add(new IcmpServiceObjectGroupLine());
+    if (ctx.icmp_object_type() != null) {
+      ServiceObject serviceObject = new ServiceObject(INLINE_SERVICE_OBJECT_NAME);
+      serviceObject.addProtocol(IpProtocol.ICMP);
+      serviceObject.setIcmpType(toIcmpType(ctx.icmp_object_type()));
+      _currentServiceObjectGroup.getLines().add(serviceObject);
+    } else {
+      _currentServiceObjectGroup.getLines().add(new IcmpServiceObjectGroupLine());
+    }
   }
 
   @Override
